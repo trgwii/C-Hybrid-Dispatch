@@ -16,5 +16,6 @@ void ATTR Animal_vocalize(Animal *animal) {
 #undef X
   default:
     animal->dynamic.vtable->vocalize(animal);
+    break;
   }
 }

@@ -14,6 +14,7 @@ void Animal_vocalize(Animal *animal) {
     break;
   default:
     animal->dynamic.vtable->vocalize(animal);
+    break;
   }
 }
 ```
