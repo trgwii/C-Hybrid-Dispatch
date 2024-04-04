@@ -3,8 +3,8 @@
 #include "dog.h"
 
 #define STATICALLY_KNOWN_ANIMALS                                               \
-  X(Dog, Dog)                                                                  \
-  X(Cat, Cat)
+  X(Cat, Cat)                                                                  \
+  X(Dog, Dog)
 
 typedef enum AnimalID {
 #define X(name, type) AnimalID_##name,
