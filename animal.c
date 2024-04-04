@@ -8,7 +8,7 @@ void __attribute__((noinline)) Animal_vocalize(Animal *animal) {
     break;
     STATICALLY_KNOWN_ANIMALS
 #undef X
-  default:
+  case AnimalID_Dynamic:
     animal->dynamic.vtable->vocalize(animal);
   }
 }

@@ -1,4 +1,5 @@
-zig build-lib -O ReleaseFast -dynamic giraffe.c -lc
-zig build-exe -O ReleaseFast main.c cat.c dog.c animal.c -lc
+set -e
+zig cc -Weverything -Werror -O2 -shared giraffe.c -lc -o libgiraffe.so
+zig cc -Weverything -Werror -Wno-unsafe-buffer-usage -O2 main.c cat.c dog.c animal.c -lc -o main
 ./main
 objdump -M intel --disassembler-color=color --disassemble=Animal_vocalize main

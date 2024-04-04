@@ -12,7 +12,7 @@ void Giraffe_vocalize(Animal *animal) {
   printf("%s\n", giraffe->sound);
 }
 
-Animal_VTable Giraffe_vtable = {
+static Animal_VTable Giraffe_vtable = {
     .vocalize = &Giraffe_vocalize,
 };
 

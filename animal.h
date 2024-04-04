@@ -22,6 +22,7 @@ typedef struct Animal_VTable {
 
 struct Animal {
   AnimalID id;
+  int _padding;
   union {
 #define X(name, type) type name;
     STATICALLY_KNOWN_ANIMALS

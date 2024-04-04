@@ -6,8 +6,10 @@
 int main(void) {
 
   void *libgiraffe = dlopen("./libgiraffe.so", RTLD_NOW);
-  Animal (*Giraffe_create)(void) = dlsym(libgiraffe, "Giraffe_create");
-  void (*Giraffe_destroy)(Animal *) = dlsym(libgiraffe, "Giraffe_destroy");
+  Animal (*Giraffe_create)(void) =
+      (Animal(*)(void))dlsym(libgiraffe, "Giraffe_create");
+  void (*Giraffe_destroy)(Animal *) =
+      (void (*)(Animal *))dlsym(libgiraffe, "Giraffe_destroy");
 
   Animal giraffe = Giraffe_create();
 
@@ -17,7 +19,7 @@ int main(void) {
       giraffe,
   };
 
-  for (int i = 0; i < 3; i++) {
+  for (unsigned i = 0; i < 3; i++) {
     Animal *animal = &animals[i];
     Animal_vocalize(animal);
   }
