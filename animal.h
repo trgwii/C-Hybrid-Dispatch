@@ -21,8 +21,6 @@ typedef struct Animal_VTable {
 } Animal_VTable;
 
 struct Animal {
-  AnimalID id;
-  int _padding;
   union {
 #define X(name, type) type name;
     STATICALLY_KNOWN_ANIMALS
@@ -32,6 +30,8 @@ struct Animal {
       Animal_VTable *vtable;
     } dynamic;
   };
+  AnimalID id;
+  int pad0_;
 };
 
 void Animal_vocalize(Animal *animal);
