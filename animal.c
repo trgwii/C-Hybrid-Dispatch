@@ -5,10 +5,11 @@ void __attribute__((noinline)) Animal_vocalize(Animal *animal) {
 #define X(name, type)                                                          \
   case AnimalID_##name:                                                        \
     name##_vocalize(&animal->name);                                            \
-    break;
+    return;
     STATICALLY_KNOWN_ANIMALS
 #undef X
-  case AnimalID_Dynamic:
+  default:
     animal->dynamic.vtable->vocalize(animal);
+    return;
   }
 }
