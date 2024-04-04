@@ -1,6 +1,12 @@
 #include "animal.h"
 
-void __attribute__((noinline)) Animal_vocalize(Animal *animal) {
+#ifdef DISPLAY_ASM
+#define ATTR __attribute__((noinline))
+#else
+#define ATTR
+#endif
+
+void ATTR Animal_vocalize(Animal *animal) {
   switch (animal->id) {
 #define X(name, type)                                                          \
   case AnimalID_##name:                                                        \
