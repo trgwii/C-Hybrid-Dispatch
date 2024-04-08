@@ -7,8 +7,7 @@ typedef struct Giraffe {
 } Giraffe;
 
 void Giraffe_vocalize(Animal *animal) {
-  Giraffe *giraffe = (Giraffe *)&animal->dynamic.data;
-  printf("%s\n", giraffe->sound);
+  printf("%s\n", ((Giraffe *)&animal->dynamic)->sound);
 }
 
 static Animal_VTable Giraffe_vtable = {
@@ -17,10 +16,10 @@ static Animal_VTable Giraffe_vtable = {
 
 Animal Giraffe_create(void) {
   Animal animal = {
-      .id = AnimalID_Dynamic,
-      .dynamic = {.data = NULL, .vtable = &Giraffe_vtable},
+      .id = (size_t)&Giraffe_vtable,
+      .dynamic = NULL,
   };
-  Giraffe *giraffe = (Giraffe *)&animal.dynamic.data;
+  Giraffe *giraffe = (Giraffe *)&animal.dynamic;
   giraffe->sound = "Snort Snort HISS!";
   return animal;
 }

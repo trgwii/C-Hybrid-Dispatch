@@ -1,16 +1,18 @@
 #pragma once
+
+#include <stddef.h>
+
 #include "cat.h"
 #include "dog.h"
 
 #define STATICALLY_KNOWN_ANIMALS                                               \
-  X(Cat, Cat)                                                                  \
-  X(Dog, Dog)
+  X(Cat, Cat, 0)                                                               \
+  X(Dog, Dog, 1)
 
 typedef enum AnimalID {
-#define X(name, type) AnimalID_##name,
+#define X(name, type, count) AnimalID_##name = (count << 1) | 1,
   STATICALLY_KNOWN_ANIMALS
 #undef X
-      AnimalID_Dynamic,
 } AnimalID;
 
 struct Animal;
@@ -22,16 +24,12 @@ typedef struct Animal_VTable {
 
 struct Animal {
   union {
-#define X(name, type) type name;
+#define X(name, type, count) type name;
     STATICALLY_KNOWN_ANIMALS
 #undef X
-    struct {
-      void *data;
-      Animal_VTable *vtable;
-    } dynamic;
+    void *dynamic;
   };
-  AnimalID id;
-  int pad0_;
+  size_t id;
 };
 
 void Animal_vocalize(Animal *animal);

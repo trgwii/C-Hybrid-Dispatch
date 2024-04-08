@@ -8,14 +8,14 @@
 
 void ATTR Animal_vocalize(Animal *animal) {
   switch (animal->id) {
-#define X(name, type)                                                          \
+#define X(name, type, count)                                                   \
   case AnimalID_##name:                                                        \
     name##_vocalize(&animal->name);                                            \
     break;
     STATICALLY_KNOWN_ANIMALS
 #undef X
   default:
-    animal->dynamic.vtable->vocalize(animal);
+    ((Animal_VTable *)animal->id)->vocalize(animal);
     break;
   }
 }

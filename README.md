@@ -13,7 +13,7 @@ void Animal_vocalize(Animal *animal) {
     Dog_vocalize(&animal->Dog);
     break;
   default:
-    animal->dynamic.vtable->vocalize(animal);
+    ((Animal_VTable *)animal->id)->vocalize(animal);
     break;
   }
 }
